@@ -1,0 +1,14 @@
+{
+  "name": "ace-clang-completion",
+  "version": "0.0.1",
+  "author": "Marek Rusinowski <marekrusinowski@gmail.com>",
+  "private": true,
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "dependencies": {
+    "express": "~4.2.0",
+    "morgan": "~1.0.0",
+    "jade": "~1.3.0"
+  }
+}
