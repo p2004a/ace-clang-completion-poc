@@ -26,6 +26,7 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
+    'use strict';
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
@@ -35,5 +36,6 @@ app.use(function (err, req, res, next) {
 
 // starting server
 var server = app.listen(app.get('port'), function () {
+    'use strict';
     console.info('Express server listening on port ' + server.address().port);
 });
