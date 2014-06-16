@@ -59,6 +59,11 @@ main = function () {
     editor.getSession().setMode("ace/mode/c_cpp");
     editor.setOptions({enableLiveAutocompletion: true});
 
+    $.ajax('resources/template.cpp')
+        .done(function (data) {
+            editor.setValue(data, -1);
+        });
+
     langTools = ace.require("ace/ext/language_tools");
     langTools.addCompleter(clangCompleter);
 
