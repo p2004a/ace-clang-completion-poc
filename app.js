@@ -19,6 +19,7 @@ app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
+    'use strict';
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -34,8 +35,21 @@ app.use(function (err, req, res, next) {
     });
 });
 
+// sosket.io
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+// completion
+require('./completion')("/completion", 9999, 'localhost', io);
+
 // starting server
-var server = app.listen(app.get('port'), function () {
+server.listen(app.get('port'), function () {
     'use strict';
     console.info('Express server listening on port ' + server.address().port);
+});
+
+// uncaught exception handler
+process.on('uncaughtException', function (err) {
+    'use strict';
+    console.error(err.stack);
 });
