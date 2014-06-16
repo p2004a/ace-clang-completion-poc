@@ -58,6 +58,7 @@ main = function () {
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/c_cpp");
     editor.setOptions({enableLiveAutocompletion: true});
+    editor.setOptions({enableBasicAutocompletion: true});
 
     $.ajax('resources/template.cpp')
         .done(function (data) {

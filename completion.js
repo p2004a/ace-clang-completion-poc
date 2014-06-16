@@ -41,7 +41,29 @@ completer = {
 
 prepareAceCompletions = function (response) {
     'use strict';
-    var relName, prepareField, preapreMethod, prepareAll, completions;
+    var relName, prepareField, preapreMethod, prepareAll, completions, values, addValueSufix;
+
+    // quite dirty hack for stupid filter from src/ace/ext-language_tools.js:1403
+    values = {};
+
+    addValueSufix = function (value) {
+        var suffix, specialChars, num, int;
+
+        int = Math.floor;
+        specialChars = "!@#$%^&*()[]{}+=|\\'\"`~><.,?";
+        suffix = "";
+        if (values[value] === undefined) {
+            values[value] = 0;
+        } else {
+            num = values[value];
+            values[value] = num + 1;
+            do {
+                suffix += specialChars[num % specialChars.length];
+                num = int(num / specialChars.length);
+            } while (num > 0);
+        }
+        return value + suffix;
+    };
 
     relName = function (name) {
         if (name.Relative === undefined) {
@@ -56,7 +78,7 @@ prepareAceCompletions = function (response) {
         caption = value = snippet = relName(field.Name);
         meta = relName(field.Type.Name);
 
-        res = {caption: caption, value: value, snippet: snippet, meta: meta};
+        res = {caption: caption, value: addValueSufix(value), snippet: snippet, meta: meta, score: 1000};
         return res;
     };
 
@@ -87,7 +109,7 @@ prepareAceCompletions = function (response) {
             meta = relName(method.Returns[0].Type.Name);
         }
 
-        res = {caption: caption, value: value, snippet: snippet, meta: meta};
+        res = {caption: caption, value: addValueSufix(value), snippet: snippet, meta: meta, score: 1000};
         return res;
     };
 

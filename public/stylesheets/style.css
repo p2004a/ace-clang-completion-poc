@@ -37,3 +37,8 @@ main {
     width: 100%;
     height: 100%;
 }
+
+.ace_editor.ace_autocomplete {
+    width: 400px;
+    min-height: 150px;
+}

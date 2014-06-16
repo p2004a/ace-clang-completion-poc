@@ -17,6 +17,16 @@ bool check_sorted(ForwardIterator begin, ForwardIterator end) {
     return true;
 }
 
+class TestClass {
+  public:
+    void method(double a) {}
+    void method(int c) {}
+    template<class T>
+    void method(T begin, T end) {}
+    void method(char c, int d);
+    void other_method(int w);
+};
+
 int main() {
     cout << "hello!" << endl;
     
@@ -34,5 +44,8 @@ int main() {
     }
 
     cout << "is set sorted? " << check_sorted(s.begin(), s.end()) << endl;
+
+    TestClass testClass;
+
     return 0;
 }
